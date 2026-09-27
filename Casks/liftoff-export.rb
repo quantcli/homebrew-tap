@@ -5,26 +5,22 @@ cask "liftoff-export" do
   on_macos do
     on_intel do
       sha256 "47a5a6cf081f98c3252c1ed901059e0f043270afa369278ee5d4b730b2a72d8c"
-      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_darwin_amd64.zip",
-        verified: "github.com/quantcli/liftoff-export-cli"
+      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_darwin_amd64.zip"
     end
     on_arm do
       sha256 "5f73204c5d004751a9c0bf0fd4ba66fed337a707eee1191a8e0f02fbea8dabdd"
-      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_darwin_arm64.zip",
-        verified: "github.com/quantcli/liftoff-export-cli"
+      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_darwin_arm64.zip"
     end
   end
 
   on_linux do
     on_intel do
       sha256 "57d7a21e6c967816c9900d905680559c9c36242697934f01081b466902b11cfe"
-      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_linux_amd64.zip",
-        verified: "github.com/quantcli/liftoff-export-cli"
+      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_linux_amd64.zip"
     end
     on_arm do
       sha256 "94db0d8daa090af1237a0a750c4cf9dd99055bb976e9f12410dc88a501bc486e"
-      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_linux_arm64.zip",
-        verified: "github.com/quantcli/liftoff-export-cli"
+      url "https://github.com/quantcli/liftoff-export-cli/releases/download/v#{version}/liftoff-export_linux_arm64.zip"
     end
   end
 
@@ -38,9 +34,9 @@ cask "liftoff-export" do
 
   binary "liftoff-export"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/liftoff-export"]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/liftoff-export"]
     end
   end
 
