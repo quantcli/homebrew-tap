@@ -5,26 +5,22 @@ cask "crono-export" do
   on_macos do
     on_intel do
       sha256 "fd548de7772b291425343430d3bba800b2ededa2c155465b635e10fbab9e1a18"
-      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_darwin_amd64.zip",
-        verified: "github.com/quantcli/crono-export-cli"
+      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_darwin_amd64.zip"
     end
     on_arm do
       sha256 "72461a2658c5175b149ef97646a6b67c257632616c5057468daf52f58d243560"
-      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_darwin_arm64.zip",
-        verified: "github.com/quantcli/crono-export-cli"
+      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_darwin_arm64.zip"
     end
   end
 
   on_linux do
     on_intel do
       sha256 "b6cc01c3a22557e689ea7b9ae3b31498bcbede2f5ebc5b285318b68bcd29262f"
-      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_linux_amd64.zip",
-        verified: "github.com/quantcli/crono-export-cli"
+      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_linux_amd64.zip"
     end
     on_arm do
       sha256 "c4861c15db68ad794fdb8e038c3e4f3379ba59d462a45bde9f796b97fc98c76c"
-      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_linux_arm64.zip",
-        verified: "github.com/quantcli/crono-export-cli"
+      url "https://github.com/quantcli/crono-export-cli/releases/download/v#{version}/crono-export_linux_arm64.zip"
     end
   end
 
@@ -38,9 +34,9 @@ cask "crono-export" do
 
   binary "crono-export"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/crono-export"]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/crono-export"]
     end
   end
 

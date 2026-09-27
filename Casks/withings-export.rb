@@ -5,26 +5,22 @@ cask "withings-export" do
   on_macos do
     on_intel do
       sha256 "0636badc4e4c38c7408c98d41b883b99eaa127a16d5b8697f5020fc85f3a880f"
-      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_darwin_amd64.zip",
-        verified: "github.com/quantcli/withings-export-cli"
+      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_darwin_amd64.zip"
     end
     on_arm do
       sha256 "1501776b7017482a8bd3ea13d02261a92f1e4332fae9b20fa8e1db691e6a3b56"
-      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_darwin_arm64.zip",
-        verified: "github.com/quantcli/withings-export-cli"
+      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_darwin_arm64.zip"
     end
   end
 
   on_linux do
     on_intel do
       sha256 "f539bc263ec079f0386f7d51b757c94f5fbcffc7cae49585bd87706ec24e1a49"
-      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_linux_amd64.zip",
-        verified: "github.com/quantcli/withings-export-cli"
+      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_linux_amd64.zip"
     end
     on_arm do
       sha256 "c753b91509792cc84168d5bd743d04e6e3900f58f3bfdf5e2eff96f31c042811"
-      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_linux_arm64.zip",
-        verified: "github.com/quantcli/withings-export-cli"
+      url "https://github.com/quantcli/withings-export-cli/releases/download/v#{version}/withings-export_linux_arm64.zip"
     end
   end
 
@@ -38,9 +34,9 @@ cask "withings-export" do
 
   binary "withings-export"
 
-  postflight do
-    if OS.mac?
-      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/withings-export"]
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{staged_path}}/withings-export"]
     end
   end
 
